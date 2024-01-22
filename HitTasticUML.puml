@@ -1,0 +1,43 @@
+@startuml
+class com.Comment {
+    -int: id
+    -String: text
+    -LocalDateTime: createdAt
+    -LocalDateTime: updatedAt
+}
+class com.Main {
+    +{static} void main(String[] args)
+}
+class com.PointOfInterest {
+    -PointOfInterestType: type
+    -List<Comment>: comments
+}
+class com.PointOfInterestConsoleService{
+    -PoinOfInterestService: pointOfInterestService
+    +List<PointOfInterest> searchByLocation()
+    +List<PointOfInterest> searchByType()
+    -int iteratePointOfInterests(List<PointOfInterest> pointOfInterests)
+    -int findById(int id)
+    -showPointOfInterest(PointOfInterest poi)
+    -void likePointOfInterest(PointOfInterest poi)
+    -void showComments(PointOfInterest poi)
+    -void addComment(PointOfInterest poi)
+    -void updateComment(PointOfInterest poi)
+    
+}
+class com.PointOfInterestService {
+    -List<PointOfInterest>: pointOfInterests
+    +PointOfInterets findById(int id)
+    +List<PointOfInterest> searchByType(PointOfInterestType type)
+    +List<PointOfInterest> searchByLocation(String location)
+}
+enum com.PointOfInterestType {
+    HOSPITAL
+    RESTUARANT
+    SCHOOL
+}
+com.PointOfInterest "have comments" *.. com.Comment
+com.PointOfInterest "have Type" *.. com.PointOfInterestType
+com.PointOfInterestConsoleService *.. com.PointOfInterestService
+com.Main *.. com.PointOfInterestConsoleService
+@enduml
